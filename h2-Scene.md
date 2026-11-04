@@ -71,3 +71,13 @@ However, AI-driven testing should operate within clearly defined boundaries, wit
 ### References
 * Liu, J., et al. (2026). Autonomous penetration testing using reinforcement learning: A review and perspectives. Expert Systems with Applications, 300, 130219. https://doi.org/10.1016/j.eswa.2025.130219
 * Darknet Diaries. (2025). Episode 165: Tanya. https://darknetdiaries.com/episode/165/
+
+
+
+# D
+
+I downloaded the Debian 13 (Trixie) Live Xfce AMD64 ISO image from the official Debian website. Since I use a Mac with an Apple M4 processor, I plan to use UTM with x86-64 emulation to run Debian in a virtual machine.
+
+
+
+
