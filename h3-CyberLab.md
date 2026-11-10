@@ -1,4 +1,4 @@
-# Reading Summaries
+## (a) Reading Summaries
 
 ### 1. Heinonen (2026): How to Install Linux to VirtualBox?
 
@@ -31,7 +31,7 @@ Source: [Karvinen (2022)](https://terokarvinen.com/2022/cracking-passwords-with-
 
 
 
-# Debian 13 (Trixie) Installation on UTM
+## (b) Debian 13 (Trixie) Installation on UTM
 
 **Date:** 10 November 2026  
 **Platform:** Apple MacBook M4  
@@ -115,3 +115,75 @@ I also checked package repository connectivity using `sudo apt update`; APT repo
 
 - [Debian 13 (Trixie) documentation](https://www.debian.org/releases/trixie/)
 - [UTM documentation](https://docs.getutm.app/)
+
+
+
+
+
+
+## (c) Cracking a Password Hash with Hashcat
+
+**Objective:** Crack the provided example hash `6b1628b016dff46e6fa35684be6acc96` by following Karvinen's Hashcat tutorial.
+
+**Environment:** Debian 13.7 (Trixie), ARM64, Xfce, running in UTM on a MacBook M4.
+
+### 1. Install the tools
+
+I refreshed the package list and installed Hashid, Hashcat, and Wget:
+
+```bash
+sudo apt-get update
+sudo apt-get -y install hashid hashcat wget
+```
+
+The installation also included PoCL, which provided an OpenCL CPU backend. `hashcat --version` reported **v6.2.6**, and `hashcat -I` detected a **4-processor CPU device**.
+
+![Hashcat installed](images/h3-CyberLab/hashcat-installation.jpg)
+
+![Hashcat OpenCL backend](images/h3-CyberLab/opencl-verification.jpg)
+
+### 2. Identify the hash
+
+I analysed the supplied hash:
+
+```bash
+hashid -m 6b1628b016dff46e6fa35684be6acc96
+```
+
+Hashid listed several possible types, including **MD5 (Hashcat mode 0)**. I used MD5 as specified for the course example; the hash format alone does not establish the algorithm.
+
+![Hash identification](images/h3-CyberLab/hash-identification.jpg)
+
+### 3. Download the wordlist
+
+I downloaded and extracted the RockYou password dictionary in `~/hashed`:
+
+```bash
+mkdir -p ~/hashed
+cd ~/hashed
+wget https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz
+tar xf rockyou.txt.tar.gz
+ls -lh rockyou.txt
+```
+
+The extracted `rockyou.txt` file was approximately **134 MB**.
+
+![RockYou download and extraction](images/h3-CyberLab/rockyou-wordlist.jpg)
+
+### 4. Run the dictionary attack
+
+I ran Hashcat with **MD5 (`-m 0`)** and **dictionary mode (`-a 0`)**:
+
+```bash
+hashcat -m 0 -a 0 '6b1628b016dff46e6fa35684be6acc96' rockyou.txt -o solved
+```
+
+Hashcat reported **`Status: Cracked`** and **`Recovered: 1/1 (100%)`**, confirming successful recovery of the example hash. The screenshot documents the result; the plaintext output was not captured separately.
+
+![Hashcat successful crack](images/h3-CyberLab/hashcat-cracked.jpg)
+
+### Conclusion
+
+I successfully completed the example MD5 dictionary attack with Hashcat using CPU-based OpenCL in Debian 13. This exercise demonstrates why weak passwords and fast, unsalted password hashes are vulnerable to dictionary attacks.
+
+**Reference:** [Karvinen (2022), *Cracking Passwords with Hashcat*](https://terokarvinen.com/2022/cracking-passwords-with-hashcat/).
