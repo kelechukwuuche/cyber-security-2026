@@ -111,6 +111,43 @@ I also checked package repository connectivity using `sudo apt update`; APT repo
 
 **Completed successfully.** Debian 13 (Trixie) runs in a UTM virtual machine on the MacBook M4. The Xfce desktop, ARM64 architecture, and SSH service were verified. A VM backup was also created for future coursework; restoration from the backup has not been tested.
 
+
+## Linux Installation – Screenshots
+
+The following screenshots document the installation and configuration of Debian 13 (Trixie) on a UTM virtual machine running on a MacBook M4.
+
+![Screenshot 1](images/h3-CyberLab/Screenshot%202026-11-10%20at%2014.50.02.png)
+
+![Screenshot 2](images/h3-CyberLab/Screenshot%202026-11-10%20at%2014.50.39.png)
+
+![Screenshot 3](images/h3-CyberLab/Screenshot%202026-11-10%20at%2014.50.52.png)
+
+![Screenshot 4](images/h3-CyberLab/Screenshot%202026-11-10%20at%2014.55.44.png)
+
+![Screenshot 5](images/h3-CyberLab/Screenshot%202026-11-10%20at%2014.59.07.png)
+
+![Screenshot 6](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.00.50.png)
+
+![Screenshot 7](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.01.40.png)
+
+![Screenshot 8](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.02.36.png)
+
+![Screenshot 9](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.03.25.png)
+
+![Screenshot 10](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.05.25.png)
+
+![Screenshot 11](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.09.58.png)
+
+![Screenshot 12](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.12.35.png)
+
+![Screenshot 13](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.13.56.png)
+
+![Screenshot 14](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.26.29.png)
+
+![Screenshot 15](images/h3-CyberLab/Screenshot%202026-11-10%20at%2015.34.53.png)
+
+
+
 ## References
 
 - [Debian 13 (Trixie) documentation](https://www.debian.org/releases/trixie/)
