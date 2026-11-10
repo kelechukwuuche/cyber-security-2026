@@ -1,6 +1,31 @@
+# Reading Summaries
 
+### 1. Heinonen (2026): How to Install Linux to VirtualBox?
 
+- Explains how to install Debian Linux using VirtualBox without affecting the host operating system.
+- Covers downloading Debian, creating a virtual machine, allocating resources, and installing Linux.
+- Recommends updating the system after installation using `sudo apt-get update` and `sudo apt-get upgrade`.
+- My question: How does running Linux in VirtualBox affect performance compared to installing it directly on a computer?
 
+Source: [Heinonen (2026)](https://github.com/johannaheinonen/johanna-test-repo/blob/main/module_1.md?)
+
+### 2. Karvinen (2020): Command Line Basics Revisited
+
+- Introduces essential Linux commands for navigating directories and managing files.
+- Explains commands such as `ls`, `cd`, `pwd`, `mkdir`, `cp`, `mv`, and `rm`.
+- Covers remote connections using SSH, software installation, and accessing command documentation.
+- My observation: Linux command-line skills are valuable for system administration, troubleshooting, and automation.
+
+Source: [Karvinen (2020)](https://terokarvinen.com/2020/command-line-basics-revisited)
+
+### 3. Karvinen (2022): Cracking Passwords with Hashcat
+
+- Introduces Hashcat as a tool for recovering passwords from hashes.
+- Demonstrates dictionary attacks using the RockYou password list.
+- Explains how to identify hash types and use Hashcat to test password candidates.
+- My observation: Weak and commonly used passwords are vulnerable to dictionary attacks, highlighting the importance of strong passwords.
+
+Source: [Karvinen (2022)](https://terokarvinen.com/2022/cracking-passwords-with-hashcat)
 
 
 
