@@ -215,3 +215,76 @@ I successfully encrypted a plaintext message with Bob's public key and decrypted
 - [h5 – Alice and Bob assignment](https://terokarvinen.com/cyber-security/)
 
 
+
+
+## c) Password Management with KeePassXC
+
+### Objective
+
+I demonstrated how to create an encrypted password database, save a sample login, lock and unlock the database, and generate a strong password using KeePassXC inside my Debian 13 (Trixie) virtual machine in UTM. I used fictional account information for this exercise.
+
+### 1. Install KeePassXC
+
+I updated the package list and installed KeePassXC:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y keepassxc
+keepassxc --version
+keepassxc
+```
+
+The installed version was **KeePassXC 2.7.10**, and the application opened successfully.
+
+![KeePassXC installation and welcome window](images/h5-AliceAndBob/07-keepassxc-installed.png)
+
+### 2. Create an encrypted password database
+
+I created a database named **Cybersecurity Lab** and saved it as `Cybersecurity-Lab.kdbx`. The database was protected with a master password. The initial database contained no entries.
+
+![New Cybersecurity Lab database](images/h5-AliceAndBob/08-database-created.png)
+
+### 3. Save a sample account
+
+I added a fictional entry called **GitHub Test Account**, using the username `alice-demo` and the website `https://github.com`. The saved database showed **1 entry**; the password was not displayed in the screenshot.
+
+![Fictional GitHub login stored in KeePassXC](images/h5-AliceAndBob/09-sample-entry.png)
+
+### 4. Lock the database
+
+I locked the database using the padlock control. KeePassXC then required the master password before the database could be opened again.
+
+![Database locked and requesting master password](images/h5-AliceAndBob/10-database-locked.png)
+
+### 5. Unlock and check the saved entry
+
+I entered the master password and unlocked the database. The fictional GitHub entry was still available, confirming that I could retrieve the saved information after unlocking.
+
+![Database unlocked with saved test entry](images/h5-AliceAndBob/11-database-unlocked.png)
+
+### 6. Generate a strong password
+
+I opened the KeePassXC password generator and selected **24 characters** with uppercase letters, lowercase letters, digits, and special characters. KeePassXC rated the generated password **Excellent** and displayed an estimated **133.39 bits of entropy**. The password was hidden in the screenshot.
+
+![KeePassXC generator settings and hidden 24-character password](images/h5-AliceAndBob/12-password-generator.png)
+
+### What attacks can password managers help prevent?
+
+- **Credential stuffing:** Attackers try leaked username/password combinations on other websites. Unique passwords limit the damage of password reuse.
+- **Dictionary attacks:** Attackers guess common words or known passwords. Randomly generated passwords are harder to guess.
+- **Password spraying:** Attackers try a few common passwords against many accounts. Unique, randomly generated passwords reduce this risk.
+- **Brute-force guessing:** Attackers systematically try combinations. Long, random passwords make guessing less practical, although rate limits and other protections also matter.
+
+### Security evaluation and conclusion
+
+KeePassXC helps me store different passwords in an encrypted database instead of reusing or memorising weak passwords. Its password generator makes it easier to create strong, unique credentials. The demonstration confirmed that I could lock the database and unlock it again using its master password.
+
+However, a password manager is not a complete defence against phishing, malware, or stolen unlocked sessions. The master password must be protected, and multifactor authentication should be used where available. I did not upload the database or any real passwords to GitHub.
+
+### Sources
+
+- [KeePassXC – User Guide](https://keepassxc.org/docs/KeePassXC_UserGuide)
+- [KeePassXC – Official website](https://keepassxc.org/)
+- [OWASP – Credential Stuffing Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html)
+- [NIST SP 800-63B – Authentication and Lifecycle Management](https://pages.nist.gov/800-63-4/sp800-63b.html)
+
