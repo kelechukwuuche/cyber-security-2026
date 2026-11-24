@@ -76,5 +76,142 @@ GitHub – Authentication Documentation
 
 
 
+## b) Encrypt and Decrypt a Message with GPG
+
+**Date:** 24 November 2026  
+**Environment:** Debian GNU/Linux 13 (Trixie), ARM64, UTM virtual machine  
+**Tool:** GnuPG (GPG) 2.4.7
+
+### Objective
+
+I used GPG to demonstrate public-key encryption by simulating two people: Alice (sender) and Bob (recipient). The goal was to encrypt a message using Bob's **public key**, decrypt it using Bob's **private key**, and verify that the original and recovered messages matched.
+
+### 1. Verify GPG and prepare the working folders
+
+GPG was already installed. I checked its version and prepared separate GPG home directories to simulate Alice and Bob.
+
+```bash
+sudo apt-get update
+sudo apt-get install -y gnupg
+gpg --version
+mkdir -p ~/h5-crypto-lab/{alice,bob}
+chmod 700 ~/h5-crypto-lab/{alice,bob}
+cd ~/h5-crypto-lab
+```
+
+![GPG installation and version](images/h5-AliceAndBob/01-gpg-installed.png)
+
+*Figure 1: GPG 2.4.7 was available in Debian.*
+
+### 2. Generate Bob's key pair
+
+I ran:
+
+```bash
+gpg --homedir ./bob --full-generate-key
+```
+
+I selected **ECC (sign and encrypt)** with Ed25519 signing and Curve25519 encryption keys, set a one-year expiry, and used the lab identity `Bob <bob@myexample.com>`. I protected the private key with a passphrase.
+
+![GPG key type selection](images/h5-AliceAndBob/02-key-type-selection.png)
+
+*Figure 2: Selecting ECC for key generation.*
+
+```bash
+gpg --homedir ./bob --list-keys
+```
+
+![Bob's key generated](images/h5-AliceAndBob/03-bob-key-created.png)
+
+*Figure 3: Bob's public key and encryption subkey were created successfully.*
+
+### 3. Share Bob's public key with Alice
+
+I exported only Bob's public key and imported it into Alice's separate GPG keyring.
+
+```bash
+gpg --homedir ./bob --armor --export bob@myexample.com > bob-public.asc
+ls -lh bob-public.asc
+gpg --homedir ./alice --import bob-public.asc
+gpg --homedir ./alice --list-keys
+```
+
+![Bob public key exported and imported](images/h5-AliceAndBob/04-public-key-exchange.png)
+
+*Figure 4: Alice successfully imported Bob's public key. GPG marked its identity as unverified (`unknown`).*
+
+### 4. Create and encrypt Alice's message
+
+I created a simple plaintext message:
+
+```bash
+echo "Hello Bob, this is a confidential message from Alice." > message.txt
+cat message.txt
+```
+
+![Original plaintext message](images/h5-AliceAndBob/05-message-created.png)
+
+*Figure 5: Original plaintext and the beginning of the encryption operation.*
+
+Alice encrypted it for Bob using the public key in her keyring:
+
+```bash
+gpg --homedir ./alice --output message.gpg \
+  --encrypt --recipient bob@myexample.com message.txt
+ls -lh message.gpg
+```
+
+GPG warned that the imported key's owner had not been independently verified. I proceeded because this was a controlled exercise using the key generated in Bob's lab directory. In real communication, I should verify the recipient's key fingerprint through a trusted channel before relying on it.
+
+### 5. Decrypt as Bob and verify the result
+
+Bob decrypted the file using the private key in his own keyring:
+
+```bash
+gpg --homedir ./bob --output decrypted.txt --decrypt message.gpg
+cat decrypted.txt
+diff message.txt decrypted.txt
+sha256sum message.txt decrypted.txt
+```
+
+The decrypted message was:
+
+```text
+Hello Bob, this is a confidential message from Alice.
+```
+
+The `diff` command returned no differences, and both files had **matching SHA-256 hashes**. This confirmed that the recovered file matched the original plaintext.
+
+![Encryption decryption and matching hashes](images/h5-AliceAndBob/06-encryption-decryption-verification.png)
+
+*Figure 6: Successful encryption, decryption, file comparison, and matching SHA-256 checksums.*
+
+### How the keys were used
+
+| Stage | Party | Key and purpose |
+|---|---|---|
+| Key generation | Bob | Creates a public/private key pair |
+| Key sharing | Bob → Alice | Shares **public** key only |
+| Encryption | Alice | Encrypts for Bob using **Bob's public key** |
+| Decryption | Bob | Decrypts using **Bob's private key** |
+| Verification of recovered text | Lab comparison | `diff` and SHA-256 confirm file equality (not sender identity) |
+
+GPG uses hybrid encryption: it encrypts the message using a symmetric session key and protects that session key with the recipient's public-key encryption mechanism.
+
+### Security evaluation
+
+**Strengths:** GPG offers encryption using established algorithms and keeps private keys separate from public keys. It also supports digital signatures, although signing was **not** performed in this task.
+
+**Limitations:** An incorrect or impersonated public key can compromise confidentiality. Private keys and passphrases must be protected. In this exercise, Alice and Bob were simulated using two folders under one Linux account; this demonstrates the key operations but is **not** the same security isolation as two separate real users or computers. Matching file hashes prove that decryption reproduced the original data, **not** that Alice authenticated or signed the message.
+
+### Conclusion
+
+I successfully encrypted a plaintext message with Bob's public key and decrypted it with Bob's private key. The decrypted text matched the original. The exercise demonstrated confidentiality and the importance of public-key verification; digital signatures and sender authentication are separate operations.
+
+### Sources
+
+- [Tero Karvinen (2023): PGP – Send Encrypted and Signed Message – gpg](https://terokarvinen.com/2023/pgp-encrypt-sign-verify/)
+- [GnuPG official manual](https://www.gnupg.org/documentation/manuals/gnupg/)
+- [h5 – Alice and Bob assignment](https://terokarvinen.com/cyber-security/)
 
 
