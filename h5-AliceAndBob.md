@@ -39,9 +39,8 @@ Public-key cryptography addresses the difficulty of distributing shared secret k
 **My observation:** I learned that secure PGP communication requires both the correct use of public/private keys and verification of whose public keys are being used. Signing and encryption serve different purposes and can be combined in one message.
 
 **Source:** 
-Schneier, B. (2015). *Applied Cryptography: Protocols, Algorithms, and Source Code in C* (20th Anniversary Edition). [O'Reilly Learning](https://learning.oreilly.com/library/view/applied-cryptography-protocols/9781119096726/).
-Karvinen, T. (2023). [*PGP – Send Encrypted and Signed Message – gpg*](https://terokarvinen.com/2023/pgp-encrypt-sign-verify/).
-
+- Schneier, B. (2015). *Applied Cryptography: Protocols, Algorithms, and Source Code in C* (20th Anniversary Edition). [O'Reilly Learning](https://learning.oreilly.com/library/view/applied-cryptography-protocols/9781119096726/).
+- Karvinen, T. (2023). [*PGP – Send Encrypted and Signed Message – gpg*](https://terokarvinen.com/2023/pgp-encrypt-sign-verify/).
 
 
 
@@ -74,5 +73,8 @@ GitHub – Authentication Documentation
 - [RFC 8446 – TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446)
 - [Cloudflare – How HTTPS Works](https://www.cloudflare.com/learning/ssl/what-is-https/)
 - [GitHub – Authentication Documentation](https://docs.github.com/en/authentication)
+
+
+
 
 
